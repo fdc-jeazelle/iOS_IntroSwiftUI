@@ -14,6 +14,7 @@ struct ThumbnailView: View {
             .resizable()
             .frame(width: 50, height: 50)
             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+            .background(.yellow)
     }
 }
 
@@ -23,19 +24,21 @@ struct ItineraryImagesView: View {
     let description: String
     let time: String
     var body: some View {
-        Image(imageName)
-            .resizable()
-            .frame(width: 50, height: 50)
-            .padding(20)
-        VStack(alignment: .leading){
-            Text(title)
-                .bold()
-            Text(description)
+        HStack(alignment: .top){
+            Image(imageName)
+                .resizable()
+                .frame(width: 50, height: 50)
+                .padding(20)
+            VStack(alignment: .leading){
+                Text(title)
+                    .bold()
+                Text(description)
             }
-        Spacer()
-        Text(time)
-            .padding(.top, 3)
-            .foregroundStyle(Color(red: 129/255.0, green: 133/255.0, blue: 137/255.0))
+            Spacer()
+            Text(time)
+                .padding(.top, 3)
+                .foregroundStyle(Color(red: 129/255.0, green: 133/255.0, blue: 137/255.0))
+        }
     }
 }
 
@@ -91,6 +94,7 @@ struct ContentView: View {
     //                }
                 }
                 Spacer()
+                    
             }
                 .padding(20)
                 .background(.yellow)
@@ -110,15 +114,13 @@ struct ItineraryView: View {
                 .bold()
             Spacer()
                 .frame(height: 5)
-            HStack(alignment: .top){
-                ItineraryImagesView(imageName: .tent, title: "Building a tent", description: "Set up your tent and organize your campsite.", time: "4:00 PM")
-            }
-            HStack(alignment: .top){
-                ItineraryImagesView(imageName: .mountain, title: "Adventure", description: "Choose a nearby hiking trail and embark on a morning hike. ", time: "5:30 PM")
-            }
-            HStack(alignment: .top){
-                ItineraryImagesView(imageName: .bonfire, title: "Campfire", description: "Gather around the campfire for storytelling...", time: "8:00 PM")
-            }
+            
+            ItineraryImagesView(imageName: .tent, title: "Building a tent", description: "Set up your tent and organize your campsite.", time: "4:00 PM")
+        
+            ItineraryImagesView(imageName: .mountain, title: "Adventure", description: "Choose a nearby hiking trail and embark on a morning hike. ", time: "5:30 PM")
+       
+            ItineraryImagesView(imageName: .bonfire, title: "Campfire", description: "Gather around the campfire for storytelling...", time: "8:00 PM")
+            
             HStack{
                 Spacer()
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/,
@@ -139,7 +141,7 @@ struct ItineraryView: View {
                 .frame(height: 10)
             
         }
-        .padding(.top, 20)
+        .padding(.top, 10)
         .padding(.trailing, 20)
         .padding(.leading, 20)
         .padding(.bottom, 5)

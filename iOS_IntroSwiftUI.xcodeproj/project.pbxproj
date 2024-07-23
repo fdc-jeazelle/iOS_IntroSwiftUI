@@ -11,6 +11,7 @@
 		F8A59E0C2C4DF5B20082EA6D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A59E0B2C4DF5B20082EA6D /* ContentView.swift */; };
 		F8A59E0E2C4DF5B40082EA6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8A59E0D2C4DF5B40082EA6D /* Assets.xcassets */; };
 		F8A59E112C4DF5B40082EA6D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8A59E102C4DF5B40082EA6D /* Preview Assets.xcassets */; };
+		F8A59E322C4F41AC0082EA6D /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A59E312C4F41AC0082EA6D /* ProductView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		F8A59E0B2C4DF5B20082EA6D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F8A59E0D2C4DF5B40082EA6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8A59E102C4DF5B40082EA6D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F8A59E312C4F41AC0082EA6D /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				F8A59E092C4DF5B20082EA6D /* iOS_IntroSwiftUIApp.swift */,
 				F8A59E0B2C4DF5B20082EA6D /* ContentView.swift */,
+				F8A59E312C4F41AC0082EA6D /* ProductView.swift */,
 				F8A59E0D2C4DF5B40082EA6D /* Assets.xcassets */,
 				F8A59E0F2C4DF5B40082EA6D /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8A59E0C2C4DF5B20082EA6D /* ContentView.swift in Sources */,
+				F8A59E322C4F41AC0082EA6D /* ProductView.swift in Sources */,
 				F8A59E0A2C4DF5B20082EA6D /* iOS_IntroSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
