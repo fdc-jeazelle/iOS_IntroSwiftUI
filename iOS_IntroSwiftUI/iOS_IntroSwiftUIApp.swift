@@ -12,7 +12,9 @@ struct iOS_IntroSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            ProductView()
+//            ProductView()
+//            JokesView()
+            UniversityListView()
         }
     }
 }

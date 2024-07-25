@@ -12,6 +12,8 @@
 		F8A59E0E2C4DF5B40082EA6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8A59E0D2C4DF5B40082EA6D /* Assets.xcassets */; };
 		F8A59E112C4DF5B40082EA6D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8A59E102C4DF5B40082EA6D /* Preview Assets.xcassets */; };
 		F8A59E322C4F41AC0082EA6D /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A59E312C4F41AC0082EA6D /* ProductView.swift */; };
+		F8A59E342C5095420082EA6D /* JokesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A59E332C5095420082EA6D /* JokesView.swift */; };
+		F8A59E362C50A8900082EA6D /* UniversityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A59E352C50A8900082EA6D /* UniversityListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,9 @@
 		F8A59E0D2C4DF5B40082EA6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8A59E102C4DF5B40082EA6D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F8A59E312C4F41AC0082EA6D /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		F8A59E332C5095420082EA6D /* JokesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokesView.swift; sourceTree = "<group>"; };
+		F8A59E352C50A8900082EA6D /* UniversityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityListView.swift; sourceTree = "<group>"; };
+		F8A59E372C50C9910082EA6D /* iOS-IntroSwiftUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "iOS-IntroSwiftUI-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,9 +58,12 @@
 		F8A59E082C4DF5B20082EA6D /* iOS_IntroSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				F8A59E372C50C9910082EA6D /* iOS-IntroSwiftUI-Info.plist */,
 				F8A59E092C4DF5B20082EA6D /* iOS_IntroSwiftUIApp.swift */,
 				F8A59E0B2C4DF5B20082EA6D /* ContentView.swift */,
 				F8A59E312C4F41AC0082EA6D /* ProductView.swift */,
+				F8A59E332C5095420082EA6D /* JokesView.swift */,
+				F8A59E352C50A8900082EA6D /* UniversityListView.swift */,
 				F8A59E0D2C4DF5B40082EA6D /* Assets.xcassets */,
 				F8A59E0F2C4DF5B40082EA6D /* Preview Content */,
 			);
@@ -141,7 +149,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8A59E0C2C4DF5B20082EA6D /* ContentView.swift in Sources */,
+				F8A59E342C5095420082EA6D /* JokesView.swift in Sources */,
 				F8A59E322C4F41AC0082EA6D /* ProductView.swift in Sources */,
+				F8A59E362C50A8900082EA6D /* UniversityListView.swift in Sources */,
 				F8A59E0A2C4DF5B20082EA6D /* iOS_IntroSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,10 +288,11 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iOS_IntroSwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS-IntroSwiftUI-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -306,10 +317,11 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iOS_IntroSwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS-IntroSwiftUI-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

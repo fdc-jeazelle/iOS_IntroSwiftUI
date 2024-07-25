@@ -116,7 +116,6 @@ struct ProductView: View {
                                 productState.selectedProduct = product
                                 productState.showModal = true
                             }
-                        Spacer()
                     }
                 }
                 .sheet(isPresented: $productState.showModal, content: {
