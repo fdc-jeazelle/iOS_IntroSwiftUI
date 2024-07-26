@@ -14,6 +14,8 @@
 		F8A59E322C4F41AC0082EA6D /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A59E312C4F41AC0082EA6D /* ProductView.swift */; };
 		F8A59E342C5095420082EA6D /* JokesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A59E332C5095420082EA6D /* JokesView.swift */; };
 		F8A59E362C50A8900082EA6D /* UniversityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A59E352C50A8900082EA6D /* UniversityListView.swift */; };
+		F8A59E822C52027C0082EA6D /* Montserrat-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A59E802C52027C0082EA6D /* Montserrat-Italic-VariableFont_wght.ttf */; };
+		F8A59E832C52027C0082EA6D /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A59E812C52027C0082EA6D /* Montserrat-VariableFont_wght.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		F8A59E332C5095420082EA6D /* JokesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokesView.swift; sourceTree = "<group>"; };
 		F8A59E352C50A8900082EA6D /* UniversityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityListView.swift; sourceTree = "<group>"; };
 		F8A59E372C50C9910082EA6D /* iOS-IntroSwiftUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "iOS-IntroSwiftUI-Info.plist"; sourceTree = SOURCE_ROOT; };
+		F8A59E802C52027C0082EA6D /* Montserrat-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		F8A59E812C52027C0082EA6D /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,8 @@
 				F8A59E332C5095420082EA6D /* JokesView.swift */,
 				F8A59E352C50A8900082EA6D /* UniversityListView.swift */,
 				F8A59E0D2C4DF5B40082EA6D /* Assets.xcassets */,
+				F8A59E802C52027C0082EA6D /* Montserrat-Italic-VariableFont_wght.ttf */,
+				F8A59E812C52027C0082EA6D /* Montserrat-VariableFont_wght.ttf */,
 				F8A59E0F2C4DF5B40082EA6D /* Preview Content */,
 			);
 			path = iOS_IntroSwiftUI;
@@ -136,7 +142,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A59E832C52027C0082EA6D /* Montserrat-VariableFont_wght.ttf in Resources */,
 				F8A59E112C4DF5B40082EA6D /* Preview Assets.xcassets in Resources */,
+				F8A59E822C52027C0082EA6D /* Montserrat-Italic-VariableFont_wght.ttf in Resources */,
 				F8A59E0E2C4DF5B40082EA6D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

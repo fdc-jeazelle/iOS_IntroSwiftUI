@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import WebKit
 
-struct University: Decodable, Identifiable{
+struct University: Decodable, Identifiable, Equatable{
     let id = UUID()
     let alphaTwoCode: String
     let webPages: [String]
@@ -18,6 +18,57 @@ struct University: Decodable, Identifiable{
     let name: String
     let stateProvince: String?
 
+}
+
+struct UniversityLogoView: View {
+    let universityName: String
+    @State private var logoURL: URL?
+    
+    var body: some View {
+        VStack {
+            if let logoURL = logoURL {
+                AsyncImage(url: logoURL) { phase in
+                    if let image = phase.image {
+                        image.resizable()
+                             .aspectRatio(contentMode: .fit)
+                             .frame(width: 50, height:50)
+                    } else if phase.error != nil {
+                        Text("Error loading logo")
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .frame(width: 100, height: 100)
+            } else {
+                ProgressView()
+                    .onAppear {
+                        fetchLogo()
+                    }
+            }
+        }
+    }
+    
+    private func fetchLogo() {
+        guard let encodedName = universityName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            return
+        }
+        
+        let logoAPI = "https://logo.clearbit.com/\(encodedName)"
+        
+        guard let url = URL(string: logoAPI) else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                DispatchQueue.main.async {
+                    self.logoURL = url
+                }
+            } else {
+                print("Error fetching logo: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }.resume()
+    }
 }
 class UniversityViewModel: ObservableObject{
     @Published var universities: [University] = []
@@ -50,7 +101,7 @@ class UniversityViewModel: ObservableObject{
                 let universities = try decoder.decode([University].self, from: data)
                 DispatchQueue.main.async {
                     self.universities = universities
-                    print("Fetched universities: \(universities)")
+//                    print("Fetched universities: \(universities)")
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -72,69 +123,116 @@ struct UniversityListView: View {
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State private var searchText = ""
+    @State private var longPressedUniversity: University?
+    @State private var showDeleteConfirmation = false
+    @State private var universityToDelete: University?
+    @State private var isShowActions = false
+    @State private var expandedUniversityId: UUID?
+//    @State private var showBlinkingIcon = false
     var body: some View {
         NavigationView {
             ZStack{
+            // Set the background color here
                 VStack{
-                    SearchBar(text: $searchText)
+                    SearchBar(text: $searchText, backgroundColor: UIColor(red:250/255, green:250/255, blue: 237/255, alpha: 1))
+                       
                     List(filteredUniversities) { university in
                         if let webPage = university.webPages.first, let url = URL(string: webPage)  {
                             HStack {
-                                Button(action: {
-                                    print(url)
-                                    urlState.selectedURL = url
-                                    urlState.isPresentingView = true
-                                   
-                                })
-                                {
-                                    HStack{
-                                        Image(systemName: "graduationcap.circle.fill")
-                                            .resizable()
-                                            .frame(width: 50, height: 50)
-                                            .foregroundStyle(.blue)
-                                        Spacer()
-                                            .frame(width: 20)
-                                        VStack(alignment: .leading) {
-                                            Text(university.name)
-                                                .frame(alignment: .leading)
-                                                .font(.headline)
-                                                .foregroundStyle(.black)
-                                            Text(university.country)
-                                                .font(.subheadline)
-                                        }
-                                        
-                                    }
-                                    .frame(width: 250, alignment: .leading)
-                                }
+                                // University icon and details
+                                var domain = university.domains.first ?? ""
                                 
-                                .buttonStyle(HoverButtonStyle())
-                                .listRowBackground(Color(.systemGray6))
-                                
+                                UniversityLogoView(universityName: domain)
+//                                Image(logo)
+//                                    .resizable()
+//                                    .frame(width: 50, height: 50)
+//                                    .foregroundStyle(.blue)
                                 Spacer()
-                                Button(action: {
-                                    if cart.contains(university.id){
-                                        cart.removeAll{$0 == university.id}
-                                        alertMessage = "\(university.name) removed from Favorites!"
-                                    } else {
-                                        cart.append(university.id)
-                                        print(cart)
-                                        alertMessage = "\(university.name) added to Favorites!"
-                                        
+                                    .frame(width: 30)
+                                VStack(alignment: .leading) {
+                                    Button(action: {
+                                        urlState.selectedURL = url
+                                        urlState.isPresentingView = true
+                                    }) {
+                                        Text(university.name)
+                                            .font(.headline)
+                                            .foregroundStyle(.black)
                                     }
-                                    showAlert = true
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                        withAnimation {
-                                            showAlert = false
+                                    .buttonStyle(HoverButtonStyle())
+                                    
+                                    Text(university.country)
+                                        .font(.subheadline)
+                                }
+                                Spacer()
+                                VStack {
+                                    // Favorite button
+                                    Button(action: {
+                                        if cart.contains(university.id) {
+                                            cart.removeAll { $0 == university.id }
+                                            alertMessage = "Removed from Favorites!"
+                                        } else {
+                                            cart.append(university.id)
+                                            alertMessage = "Added to Favorites!"
                                         }
+                                        showAlert = true
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            withAnimation {
+                                                showAlert = false
+                                            }
+                                        }
+                                    }) {
+                                        Image(systemName: cart.contains(university.id) ? "heart.fill" : "heart")
+                                            .foregroundColor(.red)
+                                            .frame(width: 40, height: 40)
                                     }
-                                })
-                                {
-                                    Image(systemName: cart.contains(university.id) ? "heart.fill" : "heart")
-                                        .foregroundColor(.red)
+                                    .buttonStyle(BorderlessButtonStyle())
                                 }
                             }
+                            .contentShape(Rectangle())
+                            .onTapGesture {}.onLongPressGesture(minimumDuration: 0.2) {
+                                if expandedUniversityId == university.id {
+                                    expandedUniversityId = nil // Collapse if already expanded
+                                } else {
+                                    expandedUniversityId = university.id // Expand the selected university
+                                }
+                            }
+
+                            if expandedUniversityId == university.id {
+                                HStack(alignment: .center){
+                                    Spacer()
+                                    Button(action: {
+                                        universityToDelete = university
+                                        showDeleteConfirmation = true
+                                    }) {
+                                        Text("Remove")
+                                            .foregroundColor(.red)
+                                            .frame(width: 100, height: 40)
+                                    }
+                                    .frame(alignment: .center)
+                                    .buttonStyle(BorderlessButtonStyle())
+                                    Spacer()
+                                }
+                               
+                            }
+//                                if isShowActions {
+//                                    HStack{
+//                                        Spacer()
+//                                        Button(action: {
+//                                            universityToDelete = university
+//                                            showDeleteConfirmation = true
+//                                        }) {
+//                                           Text("Remove")
+//                                        }
+//                                      
+//                                         .buttonStyle(BorderlessButtonStyle())
+//                                }
+//                                .background(.clear)
+//                                .frame(maxHeight: isShowActions ? nil : 0, alignment: .top)
+//                                .clipped()}
                         }
+                        
                     }
+                    .padding(.vertical, 10)
                     .navigationTitle("Universities")
                     .onAppear {
                         viewModel.fetchUniversities()
@@ -144,16 +242,42 @@ struct UniversityListView: View {
                             WebViewContainer(url: url, isPresented: $urlState.isPresentingView)
                         }
                     }
-                    .alert(isPresented: $showAlert) {
-                        Alert(title: Text("Favorite!"), message: Text(alertMessage), dismissButton: nil)
+                    
+                    .onTapGesture {
+                        // Hide delete button when tapping outside the list
+                        if expandedUniversityId != nil {
+                            withAnimation {
+                                expandedUniversityId = nil
+                            }
+                        }
                     }
+                    .overlay(
+                       Group {
+                           if showAlert {
+                               VStack{
+                                   Image(systemName: "checkmark")
+                                       .resizable()
+                                       .frame(width: 100, height: 100)
+                                       .foregroundColor(.red)
+                                       .opacity(showAlert ? 1 : 0)
+                                       .transition(.scale(scale: 0.5, anchor: .center).combined(with: .opacity))
+                                       .zIndex(1)
+                                       .animation(Animation.easeInOut(duration: 1.5), value: showAlert)
+                                   Text(alertMessage)
+                                       .foregroundColor(.white)
+                               }
+                               .padding(20)
+                               .background(Color.gray.opacity(0.5))
+                               
+                           }
+                       }
+                   )
                 }
-               
-                
-                // Favorites button at the bottom-right
                VStack {
                    Spacer()
+                  
                    HStack {
+                       
                        Spacer()
                        Button(action: {
                            // Add action for Favorites button
@@ -171,6 +295,26 @@ struct UniversityListView: View {
                    }
                }
             }
+            .alert(isPresented: $showDeleteConfirmation) {
+                Alert(
+                    title: Text("Confirm Deletion"),
+                    message: Text("Are you sure you want to delete this university?"),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let university = universityToDelete,
+                           let index = viewModel.universities.firstIndex(where: { $0.id == university.id }) {
+                            viewModel.universities.remove(at: index)
+                            alertMessage = "\(university.name) removed from the list!"
+                            showAlert = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                withAnimation {
+                                    showAlert = false
+                                }
+                            }
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
        }
 //        UniversityList(
     }
@@ -183,6 +327,11 @@ struct UniversityListView: View {
             }
         }
     }
+    //delete
+    private func deleteItems(at offsets: IndexSet) {
+           // Remove items from the universities array based on the index set
+           viewModel.universities.remove(atOffsets: offsets)
+       }
     
 }
 
@@ -208,6 +357,9 @@ struct WebViewContainer: View {
         }
     }
 }
+
+
+
 
 struct WebView: UIViewRepresentable{
     let url: URL
@@ -250,13 +402,15 @@ struct WebView: UIViewRepresentable{
 struct HoverButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
-            .background(configuration.isPressed ? Color.gray.opacity(0.5) : Color.clear)
-            .cornerRadius(8)
+//            .padding(20)
+            .background(configuration.isPressed ? .gray.opacity(0.3) : .clear)
+//            .cornerRadius(8)
     }
 }
 struct SearchBar: UIViewRepresentable {
     @Binding var text: String
+    var backgroundColor: UIColor
+    
     
     class Coordinator: NSObject, UISearchBarDelegate{
         @Binding var text: String
@@ -281,8 +435,11 @@ struct SearchBar: UIViewRepresentable {
     
     func updateUIView(_ uiView: UISearchBar, context: Context) {
         uiView.text = text
+        uiView.backgroundColor = backgroundColor
     }
 }
+
+
 
 #Preview {
     UniversityListView()
